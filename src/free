@@ -1,0 +1,36 @@
+import { createContext, useEffect, useState } from "react";
+import { addCollectionAndDocuments, getCategoryAndDocument } from "../utils/firebase/firebase";
+import { QUESTIONS } from "./Q/A";
+
+
+export const QuestionsContext = createContext({
+    questionsMap: {}
+
+
+})
+
+
+
+export const QuestionsProvider = ({ children }) => {
+    const [questionsMap, setQuestionsMap] = useState({});
+
+    useEffect(() => {
+        addCollectionAndDocuments('categories', QUESTIONS)
+    }, [])
+
+    useEffect(() => {
+        const getQuestionsMap = async () => {
+            const questionsMap = await getCategoryAndDocument();
+            console.log(questionsMap);
+            setQuestionsMap(questionsMap)
+        };
+        getQuestionsMap();
+    }, [])
+
+    const value = { questionsMap }
+
+    return (<QuestionsContext.Provider value= { value } >
+        { children }
+        < /QuestionsContext.Provider>)
+
+}

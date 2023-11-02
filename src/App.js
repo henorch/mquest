@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import { MyApp } from './App.styles';
+import Answers from './components/AnswerBoard/AnswerBoard';
+import { Fragment, useContext, useState } from 'react';
+import { QuestionsContext } from './Assets/context';
+import { AppContainer, AppMain } from './App.styled';
+import { questions } from './Assets/Q/A';
+import QuestionsBoard from './components/QuestionBoard/QuestionBoard';
+import { ScoreBoard } from './components/ScoreBoard/Scoreboard';
 
 function App() {
+
+  // const { questionsMap } = useContext(QuestionsContext)
+
+  const { currentQuestion } = useContext(QuestionsContext)
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AppContainer>
+      <div style={{
+        marginBottom: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>completion progress
+        <span style={{
+          fontSize: 40,
+          padding: 10,
+          color: 'white',
+          background: 'blue',
+          borderRadius: 50,
+          marginLeft: 10
+        }}>{currentQuestion / questions.length * 100}%</span>
+      </div>
+      <AppMain>
+        {currentQuestion === questions.length ? <ScoreBoard /> :
+          <>
+            <b style={{ marginTop: 20 }}>Question {currentQuestion + 1} out of {questions.length}</b>
+            <QuestionsBoard />
+            <Answers />
+          </>
+        }
+        <div style={{
+          fontStyle: 'italic',
+          color: 'white',
+          textAlign: 'center',
+          marginTop: 40
+        }}>copyright &copy; Henovative Africa,  Contact: 07033407608</div>
+      </AppMain>
+    </AppContainer>
+  )
 }
 
 export default App;
