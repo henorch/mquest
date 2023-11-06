@@ -1,4 +1,4 @@
-import Styled from 'styled-components';
+import Styled, { styled } from 'styled-components';
 
 export const AppContainer = Styled.div`
     height:100vh;
@@ -9,6 +9,15 @@ export const AppContainer = Styled.div`
     align-items:center;
 
 
+`
+export const TagBar = styled.div`
+    background:blue;
+    margin-bottom:2px;
+    display:flex;
+    align-items:center;
+    padding-left:10px;
+    height:10vh;
+    width:100%;
 `
 
 export const AppMain = Styled.div`

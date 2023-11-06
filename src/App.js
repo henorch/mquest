@@ -2,20 +2,40 @@ import { MyApp } from './App.styles';
 import Answers from './components/AnswerBoard/AnswerBoard';
 import { Fragment, useContext, useState } from 'react';
 import { QuestionsContext } from './Assets/context';
-import { AppContainer, AppMain } from './App.styled';
+import { AppContainer, AppMain, TagBar } from './App.styled';
 import { questions } from './Assets/Q/A';
+import { FaBars } from 'react-icons/fa'
 import QuestionsBoard from './components/QuestionBoard/QuestionBoard';
 import { ScoreBoard } from './components/ScoreBoard/Scoreboard';
+import { NavigationComponent } from './components/Navigation/Navigation';
 
 function App() {
 
   // const { questionsMap } = useContext(QuestionsContext)
 
-  const { currentQuestion } = useContext(QuestionsContext)
+  const { currentQuestion, isOpen, setIsOpen } = useContext(QuestionsContext)
 
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
 
   return (
     <AppContainer>
+      <TagBar>
+        <FaBars
+          onClick={toggle}
+          style={{
+            color: 'white',
+            fontSize: "40px",
+            padding: "10px"
+          }} />
+        <h4 style={{
+          color: 'white',
+          fontSize: "40px",
+          padding: "10px"
+        }}>MQuest</h4>
+      </TagBar>
+      {isOpen == true && <NavigationComponent />}
       <div style={{
         marginBottom: 10,
         display: 'flex',
